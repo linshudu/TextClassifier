@@ -9,19 +9,19 @@ import java.io.IOException;
 import java.util.HashSet;
 
 /**	
- * NewsGroups	ÎÄµµ¼¯Ô¤´¦ÀíÀà
+ * NewsGroups	æ–‡æ¡£é›†é¢„å¤„ç†ç±»
  * @author		linshudu
  * @qq			617486329
  */
 public class DataPreProcess {
 	
 	/**
-	 * @param strDir    	newsgroup ÎÄ¼şÄ¿Â¼µÄ¾ø¶ÔÂ·¾¶
-	 * @param targetDir 	newsgroup ÎÄ¼şÔ¤´¦ÀíºóµÄ´æ´¢Â·¾¶
-	 * @param stopWordsPath	Í£Ö¹´ÊÎÄ¼şµØÖ·
-	 * @param targetPath	Ô¤´¦Àí½á¹ûµØÖ·
-	 * @param start			¼ÇÂ¼¿ªÊ¼Ê±¼ä
-	 * @param stopWordsSet	Í£Ö¹´Ê½á¹û¼¯
+	 * @param strDir    	newsgroup æ–‡ä»¶ç›®å½•çš„ç»å¯¹è·¯å¾„
+	 * @param targetDir 	newsgroup æ–‡ä»¶é¢„å¤„ç†åçš„å­˜å‚¨è·¯å¾„
+	 * @param stopWordsPath	åœæ­¢è¯æ–‡ä»¶åœ°å€
+	 * @param targetPath	é¢„å¤„ç†ç»“æœåœ°å€
+	 * @param start			è®°å½•å¼€å§‹æ—¶é—´
+	 * @param stopWordsSet	åœæ­¢è¯ç»“æœé›†
 	 */
 	private String strDir;
 	private String stopWordsPath;
@@ -30,29 +30,29 @@ public class DataPreProcess {
 	private HashSet<String> stopWordsSet; 
 	
 	/**
-	 * process1				ÊäÈëÎÄ¼şµ÷ÓÃ´¦ÀíÊı¾İº¯Êı
-	 * @param strDir		newsgroup ÎÄ¼şÄ¿Â¼µÄ¾ø¶ÔÂ·¾¶
-	 * @param targetPath	newsgroup ÎÄ¼şÔ¤´¦ÀíºóµÄ´æ´¢Â·¾¶
-	 * @param srcGroupFiles newsgroup µØÖ·ÖĞÎÄ¼şµÄËùÓĞÖÖÀà
-	 * @param srcGF			newsgroup ÖĞµÄÒ»¸öÀà£¬ÀïÃæ°üº¬¸ÃÀàµÄĞí¶ànews
+	 * process1				è¾“å…¥æ–‡ä»¶è°ƒç”¨å¤„ç†æ•°æ®å‡½æ•°
+	 * @param strDir		newsgroup æ–‡ä»¶ç›®å½•çš„ç»å¯¹è·¯å¾„
+	 * @param targetPath	newsgroup æ–‡ä»¶é¢„å¤„ç†åçš„å­˜å‚¨è·¯å¾„
+	 * @param srcGroupFiles newsgroup åœ°å€ä¸­æ–‡ä»¶çš„æ‰€æœ‰ç§ç±»
+	 * @param srcGF			newsgroup ä¸­çš„ä¸€ä¸ªç±»ï¼Œé‡Œé¢åŒ…å«è¯¥ç±»çš„è®¸å¤šnews
 	 * @throws IOException 
 	 */
 	private void process1(String srcDir, String targetPath) throws IOException{
 		File srcFile = new File(srcDir);				
-		//Éú³ÉÔ´ÎÄ¼ş¶ÔÏóºÍÄ¿±êÎÄ¼ş¶ÔÏó
+		//ç”Ÿæˆæºæ–‡ä»¶å¯¹è±¡å’Œç›®æ ‡æ–‡ä»¶å¯¹è±¡
 		File[] srcGroupFiles = srcFile.listFiles();
 		File targetFile = new File(targetPath);
 		if(!srcFile.exists()){							
-			//ÈôÔ´ÎÄ¼şµØÖ·²»´æÔÚ
+			//è‹¥æºæ–‡ä»¶åœ°å€ä¸å­˜åœ¨
 			System.out.println("File not exist:" + strDir);
 			return;
 		}		
 		if(!targetFile.exists()){
-			//ÈôÄ¿±êÎÄ¼ş²»´æÔÚ,×¢Òâ×îºÃÏÈ½¨³öÀ´£¬·ñÔò¿ÉÄÜÄ¸Ä¿Â¼²»´æÔÚ£¬»á±¨´í
+			//è‹¥ç›®æ ‡æ–‡ä»¶ä¸å­˜åœ¨,æ³¨æ„æœ€å¥½å…ˆå»ºå‡ºæ¥ï¼Œå¦åˆ™å¯èƒ½æ¯ç›®å½•ä¸å­˜åœ¨ï¼Œä¼šæŠ¥é”™
 			targetFile.mkdirs();
 		}
 		for(File srcGF : srcGroupFiles){				
-			//Ò»Ò»ÌáÈ¡ newsgroup µÄÃ¿Ò»¸öÀà½øĞĞÔ¤´¦Àí
+			//ä¸€ä¸€æå– newsgroup çš„æ¯ä¸€ä¸ªç±»è¿›è¡Œé¢„å¤„ç†
 			File targetGroupFile = new File(targetPath+"/"+srcGF.getName());
 			if(!srcGF.isDirectory()){
 				System.out.println("\t(Ignore)The "+srcGF.getName() 
@@ -62,20 +62,20 @@ public class DataPreProcess {
 			if(!targetGroupFile.exists()){
 				targetGroupFile.mkdirs();
 			}
-			//¶Ôµ¥Ò»¸öÀàÊı¾İÔ¤´¦Àí
+			//å¯¹å•ä¸€ä¸ªç±»æ•°æ®é¢„å¤„ç†
 			process2(srcGF.getCanonicalPath(), 
 					targetGroupFile.getCanonicalPath());
 			System.out.println("group  " + srcGF.getName());
 		}
 	}
 	
-	/**¶ÔÃ¿Ò»¸öÀà´¦ÀíÊı¾İº¯Êı
-	 * @param srcGroupPath		newsgroup µ¥Ò»ÀàµÄÂ·¾¶
-	 * @param targetGroupPath	newsgroup µ¥Ò»Àà´¦Àíºó´æ´¢µÄÂ·¾¶
-	 * @param srcGF				newsgroup ÖĞµÄÒ»¸öÀà£¬ÀïÃæ°üº¬¸ÃÀàµÄĞí¶ànews
-	 * @param srcNewsFiles		¶à¸ö news ×é³ÉµÄÊı×é
-	 * @param counts			news ¸öÊıÍ³¼Æ
-	 * @param srcNF				Èç¹ûÊÇÒ»¸öµÄ news ¶ÔÏó,ÀïÃæº¬ÓĞºÜ¶à words
+	/**å¯¹æ¯ä¸€ä¸ªç±»å¤„ç†æ•°æ®å‡½æ•°
+	 * @param srcGroupPath		newsgroup å•ä¸€ç±»çš„è·¯å¾„
+	 * @param targetGroupPath	newsgroup å•ä¸€ç±»å¤„ç†åå­˜å‚¨çš„è·¯å¾„
+	 * @param srcGF				newsgroup ä¸­çš„ä¸€ä¸ªç±»ï¼Œé‡Œé¢åŒ…å«è¯¥ç±»çš„è®¸å¤šnews
+	 * @param srcNewsFiles		å¤šä¸ª news ç»„æˆçš„æ•°ç»„
+	 * @param counts			news ä¸ªæ•°ç»Ÿè®¡
+	 * @param srcNF				å¦‚æœæ˜¯ä¸€ä¸ªçš„ news å¯¹è±¡,é‡Œé¢å«æœ‰å¾ˆå¤š words
 	 * @throws IOException 
 	 */
 	private void process2(String srcGroupPath, String targetGroupPath) 
@@ -85,10 +85,10 @@ public class DataPreProcess {
 		int counts = 0;
 		for(File srcNF : srcNewsFiles){
 			if(srcNF.isDirectory()){
-				//È·ÈÏ×ÓÎÄ¼şÃû²»ÊÇÄ¿Â¼Èç¹ûÊÇ¿ÉÒÔÔÙ´Îµİ¹éµ÷ÓÃ
+				//ç¡®è®¤å­æ–‡ä»¶åä¸æ˜¯ç›®å½•å¦‚æœæ˜¯å¯ä»¥å†æ¬¡é€’å½’è°ƒç”¨
 				process2(srcNF.getCanonicalPath(), targetGroupPath);
 			}
-			else{//¶ÔÀàÏÂÃæÃ¿Ò»¸öÎÄ±¾Êı¾İÔ¤´¦Àí
+			else{//å¯¹ç±»ä¸‹é¢æ¯ä¸€ä¸ªæ–‡æœ¬æ•°æ®é¢„å¤„ç†
 				process3(srcNF.getCanonicalPath(), targetGroupPath);
 				counts++;
 			}
@@ -96,34 +96,34 @@ public class DataPreProcess {
 		System.out.print("\tThere are  " + counts+"\tfiles in ");
 	}
 	
-	/**¶ÔÃ¿Ò»¸öÎÄ±¾´¦ÀíÊı¾İº¯Êı
-	 * @param srcNewsPath			newsgroup µ¥Ò»ÎÄ±¾µÄ¾ø¶ÔÂ·¾¶
-	 * @param targetGroupPath		newsgroup µ¥Ò»Àà´¦ÀíºóµÄ´æ´¢Â·¾¶
+	/**å¯¹æ¯ä¸€ä¸ªæ–‡æœ¬å¤„ç†æ•°æ®å‡½æ•°
+	 * @param srcNewsPath			newsgroup å•ä¸€æ–‡æœ¬çš„ç»å¯¹è·¯å¾„
+	 * @param targetGroupPath		newsgroup å•ä¸€ç±»å¤„ç†åçš„å­˜å‚¨è·¯å¾„
 	 * @throws IOException 
 	 */
 	private void process3(String srcNewsPath, String targetGroupPath) 
 			throws IOException{
 		File srcNewsFile = new File(srcNewsPath);
 		BufferedReader srcFileBR = new BufferedReader(
-				new FileReader(srcNewsPath));//×°ÊÎÄ£Ê½
+				new FileReader(srcNewsPath));//è£…é¥°æ¨¡å¼
 		BufferedWriter targetFileWriter = new BufferedWriter(
 				new FileWriter(targetGroupPath + "/" + srcNewsFile.getName()));	
 		String line;
 		String text;
 		String[] words;
 		while(( line = srcFileBR.readLine()) != null){
-			//step1	 Ó¢ÎÄ´Ê·¨·ÖÎö£¬È¥³ıÊı×Ö¡¢Á¬×Ö·û¡¢±êµã·ûºÅ¡¢ÌØÊâ×Ö·û£¬¿ÉÒÔ¿¼ÂÇÓÃÕıÔò±í´ïÊ½
+			//step1	 è‹±æ–‡è¯æ³•åˆ†æï¼Œå»é™¤æ•°å­—ã€è¿å­—ç¬¦ã€æ ‡ç‚¹ç¬¦å·ã€ç‰¹æ®Šå­—ç¬¦ï¼Œå¯ä»¥è€ƒè™‘ç”¨æ­£åˆ™è¡¨è¾¾å¼
 			words = line.split("[^a-zA-Z]");
 			for(String word : words){
-				//step2		ËùÓĞ´óĞ´×ÖÄ¸×ª»»³ÉĞ¡Ğ´
+				//step2		æ‰€æœ‰å¤§å†™å­—æ¯è½¬æ¢æˆå°å†™
 				text = word.toLowerCase();
-				//step3  	´Ê¸ù»¹Ô­
+				//step3  	è¯æ ¹è¿˜åŸ
 				text = Stemmer.stemming(text);
-				//step4		È¥Í£ÓÃ´Ê
+				//step4		å»åœç”¨è¯
 				if(!word.isEmpty() && 
 						!this.stopWordsSet.contains(text)){
 					targetFileWriter.append(text + "\r\n");		
-					//windows »»ĞĞÎª\r\n, unix Îª\n, mac Îª\r
+					//windows æ¢è¡Œä¸º\r\n, unix ä¸º\n, mac ä¸º\r
 				}
 			}
 		}
@@ -133,14 +133,14 @@ public class DataPreProcess {
 	}
 	
 	
-	/**»ñÈ¡Í£Ö¹´Êº¯Êı
-	 * @param stopWordsPath		Í£Ö¹´ÊÎÄ±¾µÄ¾ø¶ÔÂ·¾¶
-	 * @param stopWordsSet		Í£Ö¹´Ê½á¹û¼¯
+	/**è·å–åœæ­¢è¯å‡½æ•°
+	 * @param stopWordsPath		åœæ­¢è¯æ–‡æœ¬çš„ç»å¯¹è·¯å¾„
+	 * @param stopWordsSet		åœæ­¢è¯ç»“æœé›†
 	 * @throws IOException 
 	 */
 	private void getStopWords(String stopWordsPath) throws IOException{
 		File stopWordsFile = new File(stopWordsPath);
-		if(!stopWordsFile.exists()){//ÈôÔ´ÎÄ¼şµØÖ·²»´æÔÚ
+		if(!stopWordsFile.exists()){//è‹¥æºæ–‡ä»¶åœ°å€ä¸å­˜åœ¨
 			System.out.println("File not exist:" + 
 					stopWordsPath.substring(stopWordsPath.lastIndexOf("/")));
 			System.exit(0);
@@ -157,9 +157,9 @@ public class DataPreProcess {
 	}
 	
 	/**
-	 * pathName			¸ù¾İ½×¶ÎÅĞ¶ÏÉú³ÉÎÄ¼şµÄÃû×Ö
-	 * @param process	true ±íÊ¾²âÊÔ½×¶Î£¬false ±íÊ¾ÑµÁ·½×¶Î
-	 * @return String	Éú³ÉÎÄ¼şÃû×Ö·û´®
+	 * pathName			æ ¹æ®é˜¶æ®µåˆ¤æ–­ç”Ÿæˆæ–‡ä»¶çš„åå­—
+	 * @param process	true è¡¨ç¤ºæµ‹è¯•é˜¶æ®µï¼Œfalse è¡¨ç¤ºè®­ç»ƒé˜¶æ®µ
+	 * @return String	ç”Ÿæˆæ–‡ä»¶åå­—ç¬¦ä¸²
 	 */
 	private String pathName(boolean process){
 		if(process)
@@ -169,13 +169,13 @@ public class DataPreProcess {
 	}
 	
 	/**	
-	 * Ô¤´¦Àí³ÌĞòÈë¿Ú
+	 * é¢„å¤„ç†ç¨‹åºå…¥å£
 	 * @param args
-	 * @param strDir		Ô´ÎÄ±¾ÈºµØÖ·
-	 * @param targetDir		Ô¤´¦Àí½á¹ûµØÖ·
-	 * @param stopWordsPath	Í£Ö¹´ÊÎÄ¼şµØÖ·
-	 * @param process		true ±íÊ¾²âÊÔ½×¶Î£¬false ±íÊ¾ÑµÁ·½×¶Î
-	 * @param targetPath	Ä¿±êÎÄ¼şµØÖ·
+	 * @param strDir		æºæ–‡æœ¬ç¾¤åœ°å€
+	 * @param targetDir		é¢„å¤„ç†ç»“æœåœ°å€
+	 * @param stopWordsPath	åœæ­¢è¯æ–‡ä»¶åœ°å€
+	 * @param process		true è¡¨ç¤ºæµ‹è¯•é˜¶æ®µï¼Œfalse è¡¨ç¤ºè®­ç»ƒé˜¶æ®µ
+	 * @param targetPath	ç›®æ ‡æ–‡ä»¶åœ°å€
 	 * @throws IOException
 	 */
 	public String main(String strDir,String targetDir,boolean process) throws IOException{
@@ -190,9 +190,9 @@ public class DataPreProcess {
 			System.out.println("step 1: Pre-process the train samples.");
 		this.getStopWords(stopWordsPath);
 		this.process1(strDir,targetPath);
-		System.out.println("\tÔ´ÎÄ¼ş--->" + strDir );
-		System.out.println("\tÄ¿±ê->" + targetPath);
-		System.out.println("\tÍ£Ö¹´ÊÎÄ¼ş£º"+stopWordsPath);
+		System.out.println("\tæºæ–‡ä»¶--->" + strDir );
+		System.out.println("\tç›®æ ‡->" + targetPath);
+		System.out.println("\tåœæ­¢è¯æ–‡ä»¶ï¼š"+stopWordsPath);
 		System.out.println("\t\t\t\tTake time: " 
 				+ (float)(System.currentTimeMillis() - this.start)/1000 
 				+ "  seconds");

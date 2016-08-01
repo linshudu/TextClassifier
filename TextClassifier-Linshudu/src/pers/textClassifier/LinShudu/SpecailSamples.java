@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * NewsGroups	Éú³É²âÊÔ¼¯µÄÌØÕ÷´Ê
+ * NewsGroups	ç”Ÿæˆæµ‹è¯•é›†çš„ç‰¹å¾è¯
  * @author 		linshudu
  * @qq 			617486329 
  */
@@ -21,12 +21,12 @@ public class SpecailSamples {
 	private long start;
 	private double degree = 1;
 
-	/**Í³¼ÆÃ¿¸ö´ÊµÄ×ÜµÄ³öÏÖ´ÎÊı£¬·µ»Ø³öÏÖ´ÎÊı´óÓÚ2´ÎµÄ´Ê»ã¹¹³É×îÖÕµÄÌØÕ÷´Ê
-	 * @param fileDir 			Ô¤´¦ÀíºÃµÄnewsgroupÎÄ¼şÄ¿Â¼µÄ¾ø¶ÔÂ·¾¶
-	 * @param srcFile			newsgroupÔ¤´¦ÀíºóµÄÄ¿±êÎÄ¼ş
-	 * @param groupFiles 		newsgroupĞÂÎÅÀàÎÄ¼ş
-	 * @param newsFiles			newsgroupÃ¿¸öÀàÏÂµÄĞÂÎÅÎÄ±¾×ÊÁÏ£¨ÒÑÔ¤´¦Àí¹ı£©
-	 * @param targetPath		²âÊÔ¼¯Éú³ÉÌØÕ÷´ÊµÄµØÖ·
+	/**ç»Ÿè®¡æ¯ä¸ªè¯çš„æ€»çš„å‡ºç°æ¬¡æ•°ï¼Œè¿”å›å‡ºç°æ¬¡æ•°å¤§äº2æ¬¡çš„è¯æ±‡æ„æˆæœ€ç»ˆçš„ç‰¹å¾è¯
+	 * @param fileDir 			é¢„å¤„ç†å¥½çš„newsgroupæ–‡ä»¶ç›®å½•çš„ç»å¯¹è·¯å¾„
+	 * @param srcFile			newsgroupé¢„å¤„ç†åçš„ç›®æ ‡æ–‡ä»¶
+	 * @param groupFiles 		newsgroupæ–°é—»ç±»æ–‡ä»¶
+	 * @param newsFiles			newsgroupæ¯ä¸ªç±»ä¸‹çš„æ–°é—»æ–‡æœ¬èµ„æ–™ï¼ˆå·²é¢„å¤„ç†è¿‡ï¼‰
+	 * @param targetPath		æµ‹è¯•é›†ç”Ÿæˆç‰¹å¾è¯çš„åœ°å€
 	 * @throws IOException 
 	 */
 	private void creatSpecialSample(String fileDir) throws IOException{
@@ -38,13 +38,13 @@ public class SpecailSamples {
 		this.targetPath = target.getCanonicalPath().replace("\\", "/");
 		
 		for(File group : groupFiles){
-			System.out.println("\tProcess the group£º" + group.getName());
+			System.out.println("\tProcess the groupï¼š" + group.getName());
 			targetPath2 = new String(
 					this.targetPath + "/" + group.getName());
 			File targetFile = new File(targetPath2);
 			if(!targetFile.exists())
 				targetFile.mkdirs();
-			//ÅĞ¶ÏÊÇ·ñÊÇÄ¿Â¼ÎÄ¼ş£¬ÊÇµÄ»°ÕÒ³öÄ¿Â¼ÏÂ×ÓÎÄ¼ş
+			//åˆ¤æ–­æ˜¯å¦æ˜¯ç›®å½•æ–‡ä»¶ï¼Œæ˜¯çš„è¯æ‰¾å‡ºç›®å½•ä¸‹å­æ–‡ä»¶
 			if (group.isDirectory()) {
 				File[] newsFiles = group.listFiles();
 				for (File news : newsFiles) {
@@ -54,8 +54,8 @@ public class SpecailSamples {
 		}
 	}
 	/**
-	 * @param news		ĞÂÎÅÎÄ±¾
-	 * @param targetFileÄ¿±êÎÄ¼ş
+	 * @param news		æ–°é—»æ–‡æœ¬
+	 * @param targetFileç›®æ ‡æ–‡ä»¶
 	 */
 	private void generateTestSample(File news,File targetFile) throws IOException{
 		String word;
@@ -74,7 +74,7 @@ public class SpecailSamples {
 			else 
 				wordMap.put(word, 1.0);
 		}
-		//Ö»·µ»Ø³öÏÖ´ÎÊı´óÓÚ degree µÄµ¥´Ê
+		//åªè¿”å›å‡ºç°æ¬¡æ•°å¤§äº degree çš„å•è¯
 		Set<String> key = wordMap.keySet();
 		Iterator<String> it = key.iterator() ;
 		for( ; it.hasNext();){
@@ -88,8 +88,8 @@ public class SpecailSamples {
 	}
 	
 	/**
-	 * Éú³ÉÑµÁ·ÑùÀı¼¯ºÏ³ÌĞòÖ÷Èë¿Ú
-	 * @param getTrainningSample Éú³ÉÑµÁ·¼¯¶ÔÏó
+	 * ç”Ÿæˆè®­ç»ƒæ ·ä¾‹é›†åˆç¨‹åºä¸»å…¥å£
+	 * @param getTrainningSample ç”Ÿæˆè®­ç»ƒé›†å¯¹è±¡
 	 */
 	public String main(String fileDir) throws IOException {
 		
@@ -97,8 +97,8 @@ public class SpecailSamples {
 		this.start = System.currentTimeMillis();
 		SpecailSamples getTS = new SpecailSamples();
 		getTS.creatSpecialSample(fileDir);
-		System.out.println("\tÔ´ÎÄ¼ş->" + getTS.srcDir );
-		System.out.println("\tÄ¿±ê->"+getTS.targetPath);
+		System.out.println("\tæºæ–‡ä»¶->" + getTS.srcDir );
+		System.out.println("\tç›®æ ‡->"+getTS.targetPath);
 		System.out.println("\t\t\t\tTake time: " 
 				+ (float)(System.currentTimeMillis() - this.start)/1000 
 				+ "  seconds");

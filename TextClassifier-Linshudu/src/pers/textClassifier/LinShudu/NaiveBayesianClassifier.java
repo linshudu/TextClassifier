@@ -9,10 +9,10 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 
-/**ÀûÓÃÆÓËØ±´Ò¶Ë¹Ëã·¨¶ÔnewsgroupÎÄµµ¼¯×ö·ÖÀà£¬²ÉÓÃÊ®×é½»²æ²âÊÔÈ¡Æ½¾ùÖµ
- * ²ÉÓÃ¶àÏîÊ½Ä£ĞÍ,stanfordĞÅÏ¢¼ìË÷µ¼ÂÛ¿Î¼şÉÏÃæÑÔ¶àÏîÊ½Ä£ĞÍ±È²®Å¬ÀûÄ£ĞÍ×¼È·¶È¸ß
- * ÀàÌõ¼ş¸ÅÂÊP(tk|c)=(Ààc ÏÂµ¥´Êtk ÔÚ¸÷¸öÎÄµµÖĞ³öÏÖ¹ıµÄ´ÎÊıÖ®ºÍ+1)/(ÀàcÏÂµ¥´Ê×ÜÊı+|V|)
- * |V| ÑµÁ·Ñù±¾ÖĞ²»ÖØ¸´ÌØÕ÷´Ê×ÜÊı
+/**åˆ©ç”¨æœ´ç´ è´å¶æ–¯ç®—æ³•å¯¹newsgroupæ–‡æ¡£é›†åšåˆ†ç±»ï¼Œé‡‡ç”¨åç»„äº¤å‰æµ‹è¯•å–å¹³å‡å€¼
+ * é‡‡ç”¨å¤šé¡¹å¼æ¨¡å‹,stanfordä¿¡æ¯æ£€ç´¢å¯¼è®ºè¯¾ä»¶ä¸Šé¢è¨€å¤šé¡¹å¼æ¨¡å‹æ¯”ä¼¯åŠªåˆ©æ¨¡å‹å‡†ç¡®åº¦é«˜
+ * ç±»æ¡ä»¶æ¦‚ç‡P(tk|c)=(ç±»c ä¸‹å•è¯tk åœ¨å„ä¸ªæ–‡æ¡£ä¸­å‡ºç°è¿‡çš„æ¬¡æ•°ä¹‹å’Œ+1)/(ç±»cä¸‹å•è¯æ€»æ•°+|V|)
+ * |V| è®­ç»ƒæ ·æœ¬ä¸­ä¸é‡å¤ç‰¹å¾è¯æ€»æ•°
  * @author 	ShuduLin
  * @qq 		617486329
  * @version 1.0
@@ -23,7 +23,7 @@ public class NaiveBayesianClassifier {
 	private BigDecimal accuracy = new BigDecimal("0");
 	private BigDecimal accuracyAvg = new BigDecimal("0");
 	private double totalWordNum = 0.0;
-	private double totalSpecialNum = 0.0;//ÑµÁ·Ñù±¾ÖĞ²»ÖØ¸´ÌØÕ÷´Ê×ÜÊı
+	private double totalSpecialNum = 0.0;//è®­ç»ƒæ ·æœ¬ä¸­ä¸é‡å¤ç‰¹å¾è¯æ€»æ•°
 	private String line;
 	private String[] words;
 	private HashMap<String,HashMap<String,Double>> wordListMap = new HashMap<>();
@@ -31,12 +31,12 @@ public class NaiveBayesianClassifier {
 	private HashMap<String,Double> proMap = new HashMap<>();
 	private File[] wordLists;
 	
-	/**»ñµÃÑµÁ·¼¯µÄĞÅÏ¢
-	 * wordList		Îª wordLists ÏÂµÄËùÓĞµ¥´Ê±í£¬text Îªµ¥Ò»µ¥´Ê±í
-	 * wordListMap	ËùÓĞÀàµÄµ¥´Ê±í¼¯ºÏ£¬key ÎªÀàÃû£¬value Îªµ¥´Ê±ímap
-	 * wordMap 		Ò»¸öÀàµÄµ¥´Ê±í¼¯ºÏ£¬key Îªµ¥´Ê£¬value Îª´ÎÊı
-	 * cateNumMap 	Àà c ÏÂµ¥´Ê×ÜÊı
-	 * proMap 		Àà c ÏÈÑé¸ÅÂÊ
+	/**è·å¾—è®­ç»ƒé›†çš„ä¿¡æ¯
+	 * wordList		ä¸º wordLists ä¸‹çš„æ‰€æœ‰å•è¯è¡¨ï¼Œtext ä¸ºå•ä¸€å•è¯è¡¨
+	 * wordListMap	æ‰€æœ‰ç±»çš„å•è¯è¡¨é›†åˆï¼Œkey ä¸ºç±»åï¼Œvalue ä¸ºå•è¯è¡¨map
+	 * wordMap 		ä¸€ä¸ªç±»çš„å•è¯è¡¨é›†åˆï¼Œkey ä¸ºå•è¯ï¼Œvalue ä¸ºæ¬¡æ•°
+	 * cateNumMap 	ç±» c ä¸‹å•è¯æ€»æ•°
+	 * proMap 		ç±» c å…ˆéªŒæ¦‚ç‡
 	 */
 	private void getTrainInfo(String wordListPath) throws FileNotFoundException, IOException{
 		File wordListFile = new File(wordListPath);
@@ -52,7 +52,7 @@ public class NaiveBayesianClassifier {
 				words = line.split(" ");
 				if(Double.parseDouble(words[1]) > 3){
 					wordMap.put(words[0], Double.parseDouble(words[1]));
-					totalWordNum += Double.parseDouble(words[1]);//ÑµÁ·Ñù±¾ÖĞ²»ÖØ¸´ÌØÕ÷´Ê×ÜÊı
+					totalWordNum += Double.parseDouble(words[1]);//è®­ç»ƒæ ·æœ¬ä¸­ä¸é‡å¤ç‰¹å¾è¯æ€»æ•°
 					cateWordNum += Double.parseDouble(words[1]);
 				}
 			}
@@ -60,51 +60,51 @@ public class NaiveBayesianClassifier {
 			cateNumMap.put(wordList.getName(), cateWordNum);
 			wordListMap.put(wordList.getName(), wordMap);
 		}
-		System.out.println("\tÑµÁ·ÎÄµµÌØÕ÷´Ê×ÜÊı:\t"+totalWordNum);
+		System.out.println("\tè®­ç»ƒæ–‡æ¡£ç‰¹å¾è¯æ€»æ•°:\t"+totalWordNum);
 		for(File wordList : wordLists){
 			double cateWordNum = cateNumMap.get(wordList.getName());
 			StringBuilder wordListName = new StringBuilder(
 						wordList.getName().replace(".txt", ""));
 			while(wordListName.length() < 26)
 				wordListName = wordListName.append(" "); 
-			System.out.print("\tÑµÁ·Àà  "+ wordListName +"ÌØÕ÷´ÊÊı£º"+cateWordNum);
+			System.out.print("\tè®­ç»ƒç±»  "+ wordListName +"ç‰¹å¾è¯æ•°ï¼š"+cateWordNum);
 			cateWordNum /= totalWordNum;
 			proMap.put(wordList.getName(), cateWordNum);
 			DecimalFormat df = new DecimalFormat("00.000");
-			System.out.println("\tÏÈÑé¸ÅÂÊ:"+df.format(cateWordNum*100)+"%");
+			System.out.println("\tå…ˆéªŒæ¦‚ç‡:"+df.format(cateWordNum*100)+"%");
 		}
 	}
 	
-	/**¶Ô²âÊÔ¼¯½øĞĞ±´Ò¶Ë¹·ÖÀà£¬²¢¼ÆËãÕıÈ·ÂÊ
-	 * @param testFile	²âÊÔ¼¯ÎÄ±¾
-	 * @param text		²âÊÔÎÄ±¾
-	 * @param rightRate	ÕıÈ·ÂÊ
-	 * @param errorRate	´íÎóÂÊ
+	/**å¯¹æµ‹è¯•é›†è¿›è¡Œè´å¶æ–¯åˆ†ç±»ï¼Œå¹¶è®¡ç®—æ­£ç¡®ç‡
+	 * @param testFile	æµ‹è¯•é›†æ–‡æœ¬
+	 * @param text		æµ‹è¯•æ–‡æœ¬
+	 * @param rightRate	æ­£ç¡®ç‡
+	 * @param errorRate	é”™è¯¯ç‡
 	 */
 	private void testClassifier(File testFile)throws IOException{
 		StringBuilder wordListName = new StringBuilder(
 				testFile.getName().replace(".txt", ""));
 		while(wordListName.length() < 26)
 			wordListName = wordListName.append(" "); 
-		System.out.print("\t²âÊÔÀà  "+ wordListName + "µÄ²âÊÔ½á¹û,");
+		System.out.print("\tæµ‹è¯•ç±»  "+ wordListName + "çš„æµ‹è¯•ç»“æœ,");
 		File[] texts = testFile.listFiles();
 		double rightRate = 0.0;
 		double errorRate = 0.0;
 		for(File text : texts){
 			BigDecimal probMax = new BigDecimal("0.0");
 			String bestCate = null;
-			for(File wordList : this.wordLists){//wordtext ÎªÒ»¸öµ¥´Ê±í
+			for(File wordList : this.wordLists){//wordtext ä¸ºä¸€ä¸ªå•è¯è¡¨
 				BufferedReader br = new BufferedReader(
 						new FileReader(text.getCanonicalPath()));
 				BigDecimal probability = new BigDecimal("1.0");
 				while ((line = br.readLine()) != null) {
 					/**
-					 * ÀàÌõ¼ş¸ÅÂÊ p(tk/c)=(ÀàcÏÂµ¥´ÊtkÔÚ¸÷¸öÎÄµµÖĞ³öÏÖ¹ıµÄ´ÎÊıÖ®ºÍ+1)/(ÀàcÏÂµ¥´Ê×ÜÊı+|V|)
-					 * @param xcProb 		ÀàÌõ¼ş¸ÅÂÊ
-					 * @param cateWordPro 	±íÊ¾ÀàcÏÂµ¥´ÊtkÔÚ¸÷¸öÎÄµµÖĞ³öÏÖ¹ıµÄ´ÎÊıÖ®ºÍ
-					 * @param wordListMap	°üº¬ÀàcÏÂµ¥´ÊtkÔÚ¸÷¸öÎÄµµÖĞ³öÏÖ¹ıµÄ´ÎÊıÖ®ºÍ
-					 * @param cateNumMap	ÖĞÓĞÀàcÏÂµ¥´Ê×ÜÊı
-					 * @param totalWordNum	±íÊ¾|V|ÑµÁ·Ñù±¾µ¥´Ê×ÜÊı
+					 * ç±»æ¡ä»¶æ¦‚ç‡ p(tk/c)=(ç±»cä¸‹å•è¯tkåœ¨å„ä¸ªæ–‡æ¡£ä¸­å‡ºç°è¿‡çš„æ¬¡æ•°ä¹‹å’Œ+1)/(ç±»cä¸‹å•è¯æ€»æ•°+|V|)
+					 * @param xcProb 		ç±»æ¡ä»¶æ¦‚ç‡
+					 * @param cateWordPro 	è¡¨ç¤ºç±»cä¸‹å•è¯tkåœ¨å„ä¸ªæ–‡æ¡£ä¸­å‡ºç°è¿‡çš„æ¬¡æ•°ä¹‹å’Œ
+					 * @param wordListMap	åŒ…å«ç±»cä¸‹å•è¯tkåœ¨å„ä¸ªæ–‡æ¡£ä¸­å‡ºç°è¿‡çš„æ¬¡æ•°ä¹‹å’Œ
+					 * @param cateNumMap	ä¸­æœ‰ç±»cä¸‹å•è¯æ€»æ•°
+					 * @param totalWordNum	è¡¨ç¤º|V|è®­ç»ƒæ ·æœ¬å•è¯æ€»æ•°
 					 */
 					double cateWordPro = 0.0;
 					double wordNumInCate = 0.0;
@@ -144,11 +144,11 @@ public class NaiveBayesianClassifier {
 		this.accuracy = new BigDecimal(String.valueOf(
 				rightRate/(rightRate+errorRate)*100));
 		this.accuracyAvg = this.accuracyAvg.add(this.accuracy);
-		System.out.println("¹²ÓĞ²âÊÔÎÄ±¾£º"+(rightRate+errorRate)+"\t·ÖÀàÕıÈ·ÂÊ£º" + 
+		System.out.println("å…±æœ‰æµ‹è¯•æ–‡æœ¬ï¼š"+(rightRate+errorRate)+"\tåˆ†ç±»æ­£ç¡®ç‡ï¼š" + 
 				this.accuracy.setScale(2, BigDecimal.ROUND_HALF_UP) + "%");
 	}
 	
-/**±´Ò¶Ë¹·ÖÀàÆ÷Èë¿Ú
+/**è´å¶æ–¯åˆ†ç±»å™¨å…¥å£
  * @param args
  * @throws Exception 
  */
@@ -157,12 +157,12 @@ public void main(String wordListPath, String specialSamplesDir) throws IOExcepti
 	System.out.println("step 5: Test the Naive Bayesian Classifier.");
 	this.getTrainInfo(wordListPath);
 	System.out.println("-----------------------------------------------------");
-	System.out.println("\t²âÊÔ½á¹û£º");
+	System.out.println("\tæµ‹è¯•ç»“æœï¼š");
 	/**
-	 * testFiles 	Îª testSamples ÏÂµÄËùÓĞ²âÊÔÀà
-	 * testFile 	ÎªÒ»¸ö²âÊÔÀà
-	 * texts 		Îª testFile ÏÂµÄËùÓĞ²âÊÔÎÄ±¾
-	 * text 		ÎªÒ»¸ö²âÊÔÎÄ±¾
+	 * testFiles 	ä¸º testSamples ä¸‹çš„æ‰€æœ‰æµ‹è¯•ç±»
+	 * testFile 	ä¸ºä¸€ä¸ªæµ‹è¯•ç±»
+	 * texts 		ä¸º testFile ä¸‹çš„æ‰€æœ‰æµ‹è¯•æ–‡æœ¬
+	 * text 		ä¸ºä¸€ä¸ªæµ‹è¯•æ–‡æœ¬
 	 */
 	File wordListFile = new File(wordListPath);
 	this.wordLists = wordListFile.listFiles();

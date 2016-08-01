@@ -1,7 +1,7 @@
 package pers.textClassifier.LinShudu;
 
 
-/**	ÎÄ±¾·ÖÀàÆ÷µÄÖ÷Èë¿Ú£¬ÏÈ¶ÔÈçĞÂÎÅµÈÎÄ±¾×ÊÁÏ½øĞĞÔ¤´¦Àí£¬È»ºó¸ù¾İÆÓËØ±´Ò¶Ë¹·ÖÀàÆ÷Éè¼Æ³ÌĞò
+/**	æ–‡æœ¬åˆ†ç±»å™¨çš„ä¸»å…¥å£ï¼Œå…ˆå¯¹å¦‚æ–°é—»ç­‰æ–‡æœ¬èµ„æ–™è¿›è¡Œé¢„å¤„ç†ï¼Œç„¶åæ ¹æ®æœ´ç´ è´å¶æ–¯åˆ†ç±»å™¨è®¾è®¡ç¨‹åº
  *	@author 	linshudu
  *	@qq 		617486329
  *	@version 	1.0
@@ -10,25 +10,25 @@ public class ClassifierMain {
 	
 	
 	/**	
-	 * @param args			ÎÄ±¾·ÖÀàÆ÷µÄÖ÷Èë¿Úº¯Êı²ÎÊı
-	 * @param start			¼ÇÂ¼·ÖÀàÆ÷¿ªÊ¼Ê±¼ä
-	 * @param srcDir		ÑµÁ·Ñù±¾ºÍ²âÊÔÑù±¾Ô´ÎÄ¼şÄ¿Â¼
-	 * @param targetDir		ÑµÁ·Ñù±¾ºÍ²âÊÔÑù±¾Ô¤´¦ÀíÄ¿±êÄ¿Â¼
-	 * @param targetPath	Ô¤´¦Àí½áÊøÄ¿±êÎÄ¼şµØÖ·
-	 * @param wordPath		µ¥´Ê±í¼¯ºÏµØÖ·
-	 * @param specialDir	²âÊÔ¼¯µÄÌØÕ÷´ÊÄ¿Â¼
-	 * @param dataPreProcessÎÄ±¾Ô¤´¦Àí¶ÔÏó
-	 * @param wordList		Éú³ÉÑµµ¥´Ê±í¼¯ºÏ¶ÔÏó
-	 * @param specail		²âÊÔ¼¯µÄÌØÕ÷´Ê¶ÔÏó
-	 * @param navieBayesianClassifier	ÆÓËØ±´Ò¶Ë¹·ÖÀàÆ÷¶ÔÏó
+	 * @param args			æ–‡æœ¬åˆ†ç±»å™¨çš„ä¸»å…¥å£å‡½æ•°å‚æ•°
+	 * @param start			è®°å½•åˆ†ç±»å™¨å¼€å§‹æ—¶é—´
+	 * @param srcDir		è®­ç»ƒæ ·æœ¬å’Œæµ‹è¯•æ ·æœ¬æºæ–‡ä»¶ç›®å½•
+	 * @param targetDir		è®­ç»ƒæ ·æœ¬å’Œæµ‹è¯•æ ·æœ¬é¢„å¤„ç†ç›®æ ‡ç›®å½•
+	 * @param targetPath	é¢„å¤„ç†ç»“æŸç›®æ ‡æ–‡ä»¶åœ°å€
+	 * @param wordPath		å•è¯è¡¨é›†åˆåœ°å€
+	 * @param specialDir	æµ‹è¯•é›†çš„ç‰¹å¾è¯ç›®å½•
+	 * @param dataPreProcessæ–‡æœ¬é¢„å¤„ç†å¯¹è±¡
+	 * @param wordList		ç”Ÿæˆè®­å•è¯è¡¨é›†åˆå¯¹è±¡
+	 * @param specail		æµ‹è¯•é›†çš„ç‰¹å¾è¯å¯¹è±¡
+	 * @param navieBayesianClassifier	æœ´ç´ è´å¶æ–¯åˆ†ç±»å™¨å¯¹è±¡
 	 */
 	public static void main(String[] args) throws Exception{
 		
 		System.out.println("Star classifying!");
 		long start = System.currentTimeMillis();
 		String srcDir,targetDir,targetPath;
-		String wordPath;// = "C:/Users/do/Desktop/ÎÄ±¾·ÖÀàÆ÷/Classfier/train/WordList";
-		String specialDir;// = "C:/Users/do/Desktop/ÎÄ±¾·ÖÀàÆ÷/Classfier/test/SpecialSamples";
+		String wordPath;// = "C:/Users/do/Desktop/æ–‡æœ¬åˆ†ç±»å™¨/Classfier/train/WordList";
+		String specialDir;// = "C:/Users/do/Desktop/æ–‡æœ¬åˆ†ç±»å™¨/Classfier/test/SpecialSamples";
 
 		DataPreProcess dataPreProcess = 
 				new DataPreProcess();
@@ -36,17 +36,17 @@ public class ClassifierMain {
 				new WordList();
 		SpecailSamples specail = 
 				new SpecailSamples();
-		//train	Ô¤´¦ÀíºÍÉú³Éµ¥´Ê±í
+		//train	é¢„å¤„ç†å’Œç”Ÿæˆå•è¯è¡¨
 		srcDir = new String("F:/DataMiningSample/orginSample");
-		targetDir = new String("C:/Users/do/Desktop/ÎÄ±¾·ÖÀàÆ÷");
+		targetDir = new String("C:/Users/do/Desktop/æ–‡æœ¬åˆ†ç±»å™¨");
 		targetPath = dataPreProcess.main(srcDir,targetDir,false);
 		wordPath = wordList.main(targetPath);
-		//test	Ô¤´¦ÀíºÍÌØÕ÷´ÊÉú³É
+		//test	é¢„å¤„ç†å’Œç‰¹å¾è¯ç”Ÿæˆ
 		srcDir = new String("F:/DataMiningSample/TestSample");
-		targetDir = new String("C:/Users/do/Desktop/ÎÄ±¾·ÖÀàÆ÷");
+		targetDir = new String("C:/Users/do/Desktop/æ–‡æœ¬åˆ†ç±»å™¨");
 		targetPath = dataPreProcess.main(srcDir,targetDir,true);
 		specialDir = specail.main(targetPath);
-		//²ÉÓÃÆÓËØ±´Ò¶Ë¹·ÖÀàÆ÷
+		//é‡‡ç”¨æœ´ç´ è´å¶æ–¯åˆ†ç±»å™¨
 		NaiveBayesianClassifier naiveBayesianClassifier = 
 				new NaiveBayesianClassifier();
 		naiveBayesianClassifier.main(wordPath,specialDir);

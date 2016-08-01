@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * NewsGroups	Éú³ÉÑµÁ·ÑùÀıµ¥´Ê±í
+ * NewsGroups	ç”Ÿæˆè®­ç»ƒæ ·ä¾‹å•è¯è¡¨
  * @author 		linshudu
  * @qq 			617486329 
  */
@@ -20,12 +20,12 @@ public class WordList {
 	private long start;
 	private double degree = 1;
 
-	/**´´½¨µ¥´Ê±íÎÄ¼ş
-	 * @param fileDir 		Ô¤´¦ÀíºÃµÄnewsgroupÎÄ¼şÄ¿Â¼
-	 * @param srcFile		newsgroupÔ¤´¦ÀíºóµÄÄ¿±êÎÄ¼ş
-	 * @param groupFiles	newsgroupĞÂÎÅÀàÎÄ¼ş
-	 * @param newsFiles		newsgroupÃ¿¸öÀàÏÂµÄĞÂÎÅÎÄ±¾×ÊÁÏ£¨ÒÑÔ¤´¦Àí¹ı£©
-	 * @param targetPath	µ¥´Ê±í¼¯ºÏµØÖ·
+	/**åˆ›å»ºå•è¯è¡¨æ–‡ä»¶
+	 * @param fileDir 		é¢„å¤„ç†å¥½çš„newsgroupæ–‡ä»¶ç›®å½•
+	 * @param srcFile		newsgroupé¢„å¤„ç†åçš„ç›®æ ‡æ–‡ä»¶
+	 * @param groupFiles	newsgroupæ–°é—»ç±»æ–‡ä»¶
+	 * @param newsFiles		newsgroupæ¯ä¸ªç±»ä¸‹çš„æ–°é—»æ–‡æœ¬èµ„æ–™ï¼ˆå·²é¢„å¤„ç†è¿‡ï¼‰
+	 * @param targetPath	å•è¯è¡¨é›†åˆåœ°å€
 	 * @throws IOException 
 	 */
 	private void creatWordListFile(String fileDir) throws IOException{
@@ -38,7 +38,7 @@ public class WordList {
 		this.targetPath = target.getCanonicalPath().replace("\\", "/");
 		for(File group : groupFiles){
 			System.out.println("\tClass: " + group.getName() + ".txt");
-			//ÅĞ¶ÏÊÇ·ñÊÇÄ¿Â¼ÎÄ¼ş£¬ÊÇµÄ»°ÕÒ³öÄ¿Â¼ÏÂ×ÓÎÄ¼ş
+			//åˆ¤æ–­æ˜¯å¦æ˜¯ç›®å½•æ–‡ä»¶ï¼Œæ˜¯çš„è¯æ‰¾å‡ºç›®å½•ä¸‹å­æ–‡ä»¶
 			if (group.isDirectory()) {
 				generateWordList(group);
 			}
@@ -46,9 +46,9 @@ public class WordList {
 	}
 	
 	/**
-	 * generateWordList	Í³¼ÆÃ¿¸ö´ÊµÄ×ÜµÄ³öÏÖ´ÎÊı£¬·µ»ØµÄ´Ê»ã¹¹³É×îÖÕµÄÊôĞÔ´Êµä
-	 * @param group		ĞÂÎÅÀàÎÄ¼ş
-	 * @param news		ĞÂÎÅÎÄ±¾ÎÄ¼ş
+	 * generateWordList	ç»Ÿè®¡æ¯ä¸ªè¯çš„æ€»çš„å‡ºç°æ¬¡æ•°ï¼Œè¿”å›çš„è¯æ±‡æ„æˆæœ€ç»ˆçš„å±æ€§è¯å…¸
+	 * @param group		æ–°é—»ç±»æ–‡ä»¶
+	 * @param news		æ–°é—»æ–‡æœ¬æ–‡ä»¶
 	 */
 	private void generateWordList(File group) throws IOException{
 		File[] newsFiles = group.listFiles();
@@ -71,7 +71,7 @@ public class WordList {
 			}
 			wordBR.close();
 		}
-		//·µ»Ø³öÏÖ degree ´ÎÒÔÉÏµÄµ¥´Ê
+		//è¿”å›å‡ºç° degree æ¬¡ä»¥ä¸Šçš„å•è¯
 		Set<String> key = wordMap.keySet();
 		Iterator<String> it = key.iterator() ;
 		for( ; it.hasNext();){
@@ -84,17 +84,17 @@ public class WordList {
 	}
 	
 	/**
-	 * Éú³ÉÑµÁ·ÑùÀı¼¯ºÏ³ÌĞòÖ÷Èë¿Ú
-	 * @param wordList	Éú³Éµ¥´Ê±í¶ÔÏó
-	 * @param fileDir	¸ù¾İÔ´ÎÄ¼şµÃµ½µ¥´Ê±í
+	 * ç”Ÿæˆè®­ç»ƒæ ·ä¾‹é›†åˆç¨‹åºä¸»å…¥å£
+	 * @param wordList	ç”Ÿæˆå•è¯è¡¨å¯¹è±¡
+	 * @param fileDir	æ ¹æ®æºæ–‡ä»¶å¾—åˆ°å•è¯è¡¨
 	 */
 	public String main(String fileDir) throws IOException {
 		this.start = System.currentTimeMillis();
 		System.out.println("step 2: Get word list.");
 		WordList wordList = new WordList();
 		wordList.creatWordListFile(fileDir);
-		System.out.println("\tÔ´ÎÄ¼ş->" + wordList.srcDir );
-		System.out.println("\tÄ¿±ê->"+wordList.targetPath);
+		System.out.println("\tæºæ–‡ä»¶->" + wordList.srcDir );
+		System.out.println("\tç›®æ ‡->"+wordList.targetPath);
 		System.out.println("\t\t\t\tTake time: " 
 				+ (float)(System.currentTimeMillis() - this.start)/1000 
 				+ "  seconds");
